@@ -11,7 +11,7 @@ const Letter: React.FC<LetterProps> = ({ onNext }) => {
 
 Selamat Ulang Tahun yang ke-18! 🎉
 
-22 November 2025... Hari ini adalah hari yang sangat spesial. Selamat datang di fase dewasa, di mana dunia membuka lebih banyak petualangan untukmu.
+23 November 2025... Hari ini adalah hari yang sangat spesial. Selamat datang di fase dewasa, di mana dunia membuka lebih banyak petualangan untukmu.
 
 Semoga di usiamu yang baru ini, kamu selalu dikelilingi kebahagiaan, cinta, dan tawa. Tetaplah menjadi Liaa yang ceria dan luar biasa.
 

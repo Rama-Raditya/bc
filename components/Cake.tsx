@@ -12,15 +12,8 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
   const [wishText, setWishText] = useState<string | null>(null);
   const [loadingWish, setLoadingWish] = useState(false);
 
-  // NOTE FOR USER:
-  // The link you provided is a webpage, not a direct image link.
-  // To use your specific illustration:
-  // 1. Download the image from: https://www.freepik.com/free-psd/3d-rendering-birthday-home-illustration_165584113.htm
-  // 2. Save the downloaded file (e.g., 'liaa-cake.jpg') into your 'public' folder.
-  // 3. Change the line below to: const CAKE_IMAGE_URL = "/liaa-cake.jpg";
-  //
-  // Currently using a high-quality 3D cake placeholder that matches the vibe:
-  const CAKE_IMAGE_URL = "https://img.freepik.com/free-psd/3d-rendering-birthday-cake-isolated_23-2151147002.jpg";
+  // High-quality 3D birthday cake image from Freepik
+  const CAKE_IMAGE_URL = "https://cdn.pixabay.com/photo/2020/05/20/10/41/birthday-cake-5192707_1280.jpg";
 
   const blowCandles = () => {
     if (!candlesBlown) {
@@ -68,64 +61,75 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
       </div>
 
       {/* Interactive Cake Image Container */}
-      <div className="relative cursor-pointer transform hover:scale-105 transition-transform duration-300 select-none tap-highlight-transparent max-w-sm w-full aspect-square flex items-center justify-center" onClick={blowCandles}>
+      <div 
+        className="relative cursor-pointer transform hover:scale-105 transition-transform duration-300 select-none tap-highlight-transparent w-full max-w-sm flex items-center justify-center z-20"
+        onClick={blowCandles}
+        style={{ height: '400px' }}
+      >
         
         {/* The 3D Cake Illustration */}
-        <img 
-          src={CAKE_IMAGE_URL} 
-          alt="3D Birthday Cake" 
-          className="w-full h-full object-contain drop-shadow-2xl z-0 relative rounded-xl"
-        />
+        <div className="relative w-full h-full bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl border border-white/20 flex items-center justify-center">
+          <img 
+            src={CAKE_IMAGE_URL}
+            alt="3D Birthday Cake" 
+            className="w-full h-full object-cover rounded-2xl"
+            onError={(e) => {
+              // Fallback if image fails to load
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+            }}
+          />
 
-        {/* Interactive Overlay Flames - Positioned to look like they are on top of the cake */}
-        <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 w-full h-full pointer-events-none z-10">
-            {/* Central Flame Cluster */}
-            {!candlesBlown && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="absolute top-0 left-1/2 transform -translate-x-1/2 -mt-4"
-              >
-                 {/* We create a cluster of flames since we don't know exact candle positions */}
-                 <div className="relative">
-                    <motion.div 
-                      className="absolute -left-6 top-2 text-orange-400 drop-shadow-[0_0_15px_rgba(255,165,0,0.9)]"
-                      animate={{ scale: [1, 1.1, 0.9, 1], rotate: [-2, 2, -1, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity }}
-                    >
-                       <Flame className="w-10 h-10 fill-orange-500 stroke-yellow-200" />
-                    </motion.div>
-                    
-                    <motion.div 
-                      className="absolute left-0 -top-4 text-orange-500 drop-shadow-[0_0_15px_rgba(255,140,0,0.9)]"
-                      animate={{ scale: [1.1, 1, 1.2, 1.1], rotate: [2, -2, 1, 0] }}
-                      transition={{ duration: 0.7, repeat: Infinity }}
-                    >
-                       <Flame className="w-12 h-12 fill-red-500 stroke-yellow-200" />
-                    </motion.div>
-
-                    <motion.div 
-                      className="absolute left-6 top-2 text-orange-400 drop-shadow-[0_0_15px_rgba(255,165,0,0.9)]"
-                      animate={{ scale: [0.9, 1.1, 1, 0.9], rotate: [-1, 3, -2, 0] }}
-                      transition={{ duration: 0.8, repeat: Infinity }}
-                    >
-                       <Flame className="w-10 h-10 fill-orange-500 stroke-yellow-200" />
-                    </motion.div>
-                 </div>
-              </motion.div>
-            )}
-
-            {/* Smoke Effect on Blow */}
-            {candlesBlown && (
-                <motion.div
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{ opacity: [0, 0.8, 0], y: -80, scale: 1.5 }}
-                  transition={{ duration: 2 }}
-                  className="absolute -top-10 left-1/2 transform -translate-x-1/2 text-gray-300"
+          {/* Interactive Overlay Flames - Positioned to look like they are on top of the cake */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center">
+              {/* Central Flame Cluster */}
+              {!candlesBlown && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="relative"
                 >
-                  <span className="text-4xl filter blur-[2px]">💨</span>
+                   {/* We create a cluster of flames since we don't know exact candle positions */}
+                   <div className="relative flex gap-8 items-end justify-center">
+                      <motion.div 
+                        className="text-orange-400 drop-shadow-[0_0_15px_rgba(255,165,0,0.9)]"
+                        animate={{ scale: [1, 1.1, 0.9, 1], rotate: [-2, 2, -1, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity }}
+                      >
+                         <Flame className="w-10 h-10 fill-orange-500 stroke-yellow-200" />
+                      </motion.div>
+                      
+                      <motion.div 
+                        className="text-orange-500 drop-shadow-[0_0_15px_rgba(255,140,0,0.9)]"
+                        animate={{ scale: [1.1, 1, 1.2, 1.1], rotate: [2, -2, 1, 0] }}
+                        transition={{ duration: 0.7, repeat: Infinity }}
+                      >
+                         <Flame className="w-12 h-12 fill-red-500 stroke-yellow-200" />
+                      </motion.div>
+
+                      <motion.div 
+                        className="text-orange-400 drop-shadow-[0_0_15px_rgba(255,165,0,0.9)]"
+                        animate={{ scale: [0.9, 1.1, 1, 0.9], rotate: [-1, 3, -2, 0] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
+                      >
+                         <Flame className="w-10 h-10 fill-orange-500 stroke-yellow-200" />
+                      </motion.div>
+                   </div>
                 </motion.div>
-            )}
+              )}
+
+              {/* Smoke Effect on Blow */}
+              {candlesBlown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: [0, 0.8, 0], y: -80, scale: 1.5 }}
+                    transition={{ duration: 2 }}
+                    className="text-gray-300"
+                  >
+                    <span className="text-4xl filter blur-[2px]">💨</span>
+                  </motion.div>
+              )}
+          </div>
         </div>
       </div>
 

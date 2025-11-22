@@ -11,8 +11,9 @@ const App: React.FC = () => {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Audio URL dari Pixabay - Solo Piano Thanksgiving Day Holiday
-  const AUDIO_URL = "https://cdn.pixabay.com/download/audio/2022/08/09/audio_170989ad77.mp3"; 
+  // Audio URL - "Happy Birthday to You" Piano Version dari Pixabay
+  // Elegant & classy background music yang perfect untuk ulang tahun 18th
+  const AUDIO_URL = "https://cdn.pixabay.com/download/audio/2022/02/15/audio_d3b4351d14.mp3"; 
 
   // Stop audio when reaching Finale
   useEffect(() => {

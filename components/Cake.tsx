@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { generateBirthdayWish } from '../services/geminiService';
+import { generateBirthdayWish } from '../utils/gemini';
 import { Sparkles, Flame } from 'lucide-react';
 
 interface CakeProps {

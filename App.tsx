@@ -12,7 +12,7 @@ const App: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // A sweet, cheerful instrumental happy birthday track
-  const AUDIO_URL = "https://pixabay.com/music/download/music-1139.mp3"; 
+  const AUDIO_URL = "./yb.mp3"; 
 
   // Stop audio when reaching Finale
   useEffect(() => {

@@ -11,8 +11,9 @@ const App: React.FC = () => {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // A sweet, cheerful instrumental happy birthday track
-  const AUDIO_URL = "./yb.mp3"; 
+  // Audio URL - pastikan file yb.mp3 ada di folder public/
+  // Path: public/yb.mp3 → "./yb.mp3" atau "/yb.mp3"
+  const AUDIO_URL = "/yb.mp3"; 
 
   // Stop audio when reaching Finale
   useEffect(() => {
@@ -62,8 +63,13 @@ const App: React.FC = () => {
 
   return (
     <main className="w-full h-screen overflow-hidden relative bg-pink-50">
-      <audio ref={audioRef} loop>
+      <audio 
+        ref={audioRef} 
+        loop
+        crossOrigin="anonymous"
+      >
         <source src={AUDIO_URL} type="audio/mpeg" />
+        Your browser does not support the audio element.
       </audio>
 
       {/* Audio Control Button - Hidden at Finale */}
@@ -71,6 +77,7 @@ const App: React.FC = () => {
         <button 
           onClick={toggleAudio}
           className="fixed top-4 right-4 z-50 bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white/80 transition-all"
+          title={isMuted ? "Unmute" : "Mute"}
         >
           {isMuted ? <VolumeX className="w-5 h-5 text-gray-700" /> : <Volume2 className="w-5 h-5 text-pink-600" />}
         </button>

@@ -6,9 +6,10 @@ import { Camera, Star } from 'lucide-react';
 const Finale: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showContent, setShowContent] = useState(false);
+  const [particlesInitialized, setParticlesInitialized] = useState(false);
 
   // Placeholder image - In a real app, the user would replace this URL with Liaa's photo
-  const LIAA_PHOTO_URL = "https://picsum.photos/seed/liaa/400/400"; 
+  const LIAA_PHOTO_URL = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,10 +25,10 @@ const Finale: React.FC = () => {
     const colors = ['#FF1493', '#FFD700', '#00BFFF', '#FF4500', '#7FFF00', '#EE82EE'];
 
     const createFirework = (x: number, y: number) => {
-      const particleCount = 120;
+      const particleCount = 100;
       for (let i = 0; i < particleCount; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 6 + 2;
+        const speed = Math.random() * 8 + 3;
         particles.push({
           x,
           y,
@@ -37,24 +38,26 @@ const Finale: React.FC = () => {
             y: Math.sin(angle) * speed,
           },
           alpha: 1,
-          life: Math.random() * 80 + 40
+          life: Math.random() * 100 + 60
         });
       }
     };
 
     let animationId: number;
     let frame = 0;
+    let fireworkFrameCounter = 0;
 
     const animate = () => {
       animationId = requestAnimationFrame(animate);
       frame++;
+      fireworkFrameCounter++;
 
       // Clear canvas with fade effect for trails
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Create random fireworks
-      if (frame % 30 === 0) {
+      // Create random fireworks every 25 frames
+      if (fireworkFrameCounter % 25 === 0 && frame < 300) {
         createFirework(
           Math.random() * canvas.width,
           Math.random() * canvas.height * 0.6
@@ -66,14 +69,14 @@ const Finale: React.FC = () => {
         const p = particles[i];
         p.x += p.velocity.x;
         p.y += p.velocity.y;
-        p.velocity.y += 0.06; // gravity
-        p.alpha -= 0.015;
+        p.velocity.y += 0.08; // gravity
+        p.alpha -= 0.012;
         p.life--;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
+        ctx.globalAlpha = Math.max(0, p.alpha);
         ctx.fill();
 
         if (p.life <= 0 || p.alpha <= 0) {
@@ -83,56 +86,89 @@ const Finale: React.FC = () => {
       ctx.globalAlpha = 1;
     };
 
+    setParticlesInitialized(true);
     animate();
-    setTimeout(() => setShowContent(true), 1500);
+    
+    // Show content after delay
+    const contentTimer = setTimeout(() => setShowContent(true), 1500);
 
-    return () => cancelAnimationFrame(animationId);
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      clearTimeout(contentTimer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
-    <div className="relative h-screen w-full bg-black overflow-hidden flex items-center justify-center">
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
+    <div className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
+      {/* Canvas for fireworks */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute inset-0 z-0" 
+        style={{ display: 'block' }}
+      />
       
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6">
+      {/* Content overlay */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 pointer-events-none">
         <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={showContent ? { scale: 1, rotate: -3 } : {}}
+            initial={{ scale: 0, rotate: -180, opacity: 0 }}
+            animate={showContent ? { scale: 1, rotate: -3, opacity: 1 } : { scale: 0, rotate: -180, opacity: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 15 }}
-            className="bg-white p-3 pb-10 rounded-sm shadow-[0_0_40px_rgba(255,255,255,0.3)] transform rotate-2 max-w-xs w-64 md:w-80"
+            className="bg-white p-3 pb-10 rounded-sm shadow-[0_0_40px_rgba(255,255,255,0.3)] transform rotate-2 max-w-xs w-64 md:w-80 pointer-events-auto"
         >
-            <div className="relative aspect-square overflow-hidden bg-gray-100 mb-4 border border-gray-200">
+            <div className="relative aspect-square overflow-hidden bg-gray-100 mb-4 border border-gray-200 rounded-sm">
                 <img 
-                    src={LIAA_PHOTO_URL} 
+                    src={https://drive.google.com/file/d/1HJggMtdlopRfMCOhRlsoSt5KsMEqDSLF/view?usp=drivesdk}
                     alt="Birthday Girl Liaa" 
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.backgroundColor = '#f3f4f6';
+                    }}
                 />
-                 <div className="absolute top-2 right-2 bg-white/90 p-1.5 rounded-full shadow-sm">
-                     <Camera className="w-4 h-4 text-pink-500" />
-                 </div>
+                <div className="absolute top-2 right-2 bg-white/90 p-1.5 rounded-full shadow-sm">
+                    <Camera className="w-4 h-4 text-pink-500" />
+                </div>
             </div>
-            <h2 className="handwritten text-4xl text-center text-gray-800">Liaa</h2>
-            <p className="text-center text-gray-500 text-xs font-sans tracking-widest mt-1 uppercase">Nov 22 • 18 Years Old</p>
+            <h2 className="handwritten text-3xl text-center text-gray-800">Liaa</h2>
+            <p className="text-center text-gray-500 text-xs font-sans tracking-widest mt-1 uppercase">Nov 23 • 18 Years Old</p>
             
             <div className="absolute bottom-3 right-3">
-                 <Star className="text-yellow-400 fill-current w-5 h-5" />
+                <Star className="text-yellow-400 fill-current w-5 h-5" />
             </div>
         </motion.div>
 
         <motion.div
             initial={{ opacity: 0, y: 50 }}
-            animate={showContent ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="mt-10 text-center text-white z-20"
+            animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ delay: 1.2, duration: 1 }}
+            className="mt-12 text-center text-white z-20 pointer-events-auto"
         >
             <h1 className="text-5xl md:text-6xl handwritten text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 drop-shadow-lg leading-tight">
                 Selamat Ulang Tahun!
             </h1>
             <motion.p 
-                className="mt-4 text-lg md:text-xl text-gray-200 font-light max-w-md mx-auto px-4"
+                className="mt-6 text-lg md:text-xl text-gray-200 font-light max-w-md mx-auto px-4"
                 animate={{ opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 3, repeat: Infinity }}
             >
-                Semoga harimu seindah senyumanmu.
+                Semoga harimu seindah senyumanmu. 💝
+            </motion.p>
+            
+            <motion.p 
+                className="mt-4 text-base md:text-lg text-pink-300 font-light max-w-md mx-auto px-4"
+                animate={{ opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+            >
+                23 November 2025 ✨
             </motion.p>
         </motion.div>
       </div>

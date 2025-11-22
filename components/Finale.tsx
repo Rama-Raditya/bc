@@ -125,7 +125,7 @@ const Finale: React.FC = () => {
         >
           <div className="relative aspect-square overflow-hidden bg-gray-100 mb-4 border border-gray-200 rounded-sm">
             <img 
-              src={LIAA_PHOTO_URL}
+              src={lia.jpg}
               alt="Birthday Girl Liaa" 
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -180,7 +180,7 @@ const Finale: React.FC = () => {
             onClick={() => window.location.reload()}
             className="mt-10 px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 rounded-full text-white font-bold transition-all shadow-[0_0_20px_rgba(236,72,153,0.5)] transform hover:scale-105 active:scale-95"
           >
-            Mulai Ulang 🎉
+           RESTART
           </motion.button>
         </motion.div>
       </div>

@@ -9,7 +9,7 @@ const Finale: React.FC = () => {
 
   // Ganti dengan foto Liaa dari Google Drive atau URL lain
   // Format Google Drive: https://drive.google.com/uc?id=FILE_ID
-  const LIAA_PHOTO_URL = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop";
+  const LIAA_PHOTO_URL = "https://drive.google.com/u/0/drive-viewer/AKGpihZnIsKTOE0fHQubw8W11xorNparepr0BGbUr01278SbKzSzSwqsB-VGXWonB4ZadxJaFH-ikf6WPnlPK2QOaM93iaG_ibmPmCU=s1600-rw-v1";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -106,16 +106,16 @@ const Finale: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
+    <div className="relative w-full min-h-screen bg-black overflow-y-auto flex items-center justify-center">
       {/* Canvas for fireworks */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 z-0" 
+        className="fixed inset-0 z-0" 
         style={{ display: 'block' }}
       />
       
       {/* Content overlay */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6">
+      <div className="relative z-10 flex flex-col items-center justify-center p-6 py-12 w-full">
         {/* Photo Card */}
         <motion.div
           initial={{ scale: 0, rotate: -180, opacity: 0 }}

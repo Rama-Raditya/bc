@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Envelope from './components/Envelope';
 import Letter from './components/Letter';
 import Cake from './components/Cake';
@@ -12,7 +12,18 @@ const App: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // A sweet, cheerful instrumental happy birthday track
-  const AUDIO_URL = "https://music.youtube.com/watch?v=gcxR9ejZpUI&si=ZBSs_-UH-GX8Kv6u"; 
+  const AUDIO_URL = "https://pixabay.com/music/download/music-1139.mp3"; 
+
+  // Stop audio when reaching Finale
+  useEffect(() => {
+    if (stage === AppStage.FINALE) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      setIsMuted(true);
+    }
+  }, [stage]);
 
   const handleEnvelopeOpen = () => {
     setStage(AppStage.LETTER);
@@ -55,8 +66,8 @@ const App: React.FC = () => {
         <source src={AUDIO_URL} type="audio/mpeg" />
       </audio>
 
-      {/* Audio Control Button */}
-      {stage !== AppStage.ENVELOPE && (
+      {/* Audio Control Button - Hidden at Finale */}
+      {stage !== AppStage.ENVELOPE && stage !== AppStage.FINALE && (
         <button 
           onClick={toggleAudio}
           className="fixed top-4 right-4 z-50 bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white/80 transition-all"

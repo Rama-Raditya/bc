@@ -12,9 +12,6 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
   const [wishText, setWishText] = useState<string | null>(null);
   const [loadingWish, setLoadingWish] = useState(false);
 
-  // High-quality 3D birthday cake image from Freepik
-  const CAKE_IMAGE_URL = "https://cdn.pixabay.com/photo/2020/05/20/10/41/birthday-cake-5192707_1280.jpg";
-
   const blowCandles = () => {
     if (!candlesBlown) {
       setCandlesBlown(true);
@@ -60,81 +57,101 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
         </p>
       </div>
 
-      {/* Interactive Cake Image Container */}
+      {/* Interactive Cake SVG Container */}
       <div 
-        className="relative cursor-pointer transform hover:scale-105 transition-transform duration-300 select-none tap-highlight-transparent w-full max-w-sm flex items-center justify-center z-20"
+        className="relative cursor-pointer transform hover:scale-105 transition-transform duration-300 select-none w-full max-w-sm z-20"
         onClick={blowCandles}
-        style={{ height: '400px' }}
       >
-        
-        {/* The 3D Cake Illustration */}
-        <div className="relative w-full h-full bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl border border-white/20 flex items-center justify-center">
-          <img 
-            src={CAKE_IMAGE_URL}
-            alt="3D Birthday Cake" 
-            className="w-full h-full object-cover rounded-2xl"
-            onError={(e) => {
-              // Fallback if image fails to load
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-            }}
-          />
+        <svg 
+          viewBox="0 0 400 500" 
+          className="w-full h-auto drop-shadow-2xl"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Cake Base Layer 1 */}
+          <rect x="50" y="300" width="300" height="80" rx="15" fill="#D4A574" />
+          <ellipse cx="200" cy="300" rx="150" ry="25" fill="#E8C4A0" />
+          
+          {/* Cake Base Layer 2 */}
+          <rect x="70" y="220" width="260" height="80" rx="15" fill="#C9956D" />
+          <ellipse cx="200" cy="220" rx="130" ry="20" fill="#DDB896" />
+          
+          {/* Cake Top Layer */}
+          <rect x="90" y="140" width="220" height="80" rx="15" fill="#D4A574" />
+          <ellipse cx="200" cy="140" rx="110" ry="18" fill="#E8C4A0" />
+          
+          {/* Cake Frosting Swirls */}
+          <path d="M 100 200 Q 120 180 140 200" stroke="#F4D4B0" strokeWidth="8" fill="none" strokeLinecap="round" />
+          <path d="M 260 200 Q 280 180 300 200" stroke="#F4D4B0" strokeWidth="8" fill="none" strokeLinecap="round" />
+          
+          {/* Candles - Stick */}
+          <line x1="140" y1="100" x2="140" y2="50" stroke="#DAA520" strokeWidth="6" />
+          <line x1="200" y1="95" x2="200" y2="30" stroke="#DAA520" strokeWidth="6" />
+          <line x1="260" y1="100" x2="260" y2="50" stroke="#DAA520" strokeWidth="6" />
+          
+          {/* Decorative Elements - Berries/Cherries */}
+          <circle cx="120" cy="180" r="8" fill="#DC143C" />
+          <circle cx="280" cy="180" r="8" fill="#DC143C" />
+          <circle cx="200" cy="170" r="8" fill="#DC143C" />
+          
+          {/* Shine Effect */}
+          <ellipse cx="180" cy="160" rx="30" ry="15" fill="white" opacity="0.15" />
+        </svg>
 
-          {/* Interactive Overlay Flames - Positioned to look like they are on top of the cake */}
-          <div className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center">
-              {/* Central Flame Cluster */}
-              {!candlesBlown && (
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="relative"
-                >
-                   {/* We create a cluster of flames since we don't know exact candle positions */}
-                   <div className="relative flex gap-8 items-end justify-center">
-                      <motion.div 
-                        className="text-orange-400 drop-shadow-[0_0_15px_rgba(255,165,0,0.9)]"
-                        animate={{ scale: [1, 1.1, 0.9, 1], rotate: [-2, 2, -1, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity }}
-                      >
-                         <Flame className="w-10 h-10 fill-orange-500 stroke-yellow-200" />
-                      </motion.div>
-                      
-                      <motion.div 
-                        className="text-orange-500 drop-shadow-[0_0_15px_rgba(255,140,0,0.9)]"
-                        animate={{ scale: [1.1, 1, 1.2, 1.1], rotate: [2, -2, 1, 0] }}
-                        transition={{ duration: 0.7, repeat: Infinity }}
-                      >
-                         <Flame className="w-12 h-12 fill-red-500 stroke-yellow-200" />
-                      </motion.div>
+        {/* Interactive Overlay Flames */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center" style={{ top: '-80px' }}>
+          {!candlesBlown && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="relative w-full h-full flex items-start justify-center pt-12"
+            >
+              {/* Left Candle Flame */}
+              <motion.div 
+                className="absolute text-orange-400 drop-shadow-[0_0_20px_rgba(255,165,0,0.95)]"
+                style={{ left: '25%' }}
+                animate={{ scale: [1, 1.2, 0.95, 1], rotate: [-3, 3, -2, 0] }}
+                transition={{ duration: 0.6, repeat: Infinity }}
+              >
+                <Flame className="w-12 h-12 fill-orange-500 stroke-yellow-300" />
+              </motion.div>
+              
+              {/* Center Candle Flame */}
+              <motion.div 
+                className="text-orange-500 drop-shadow-[0_0_25px_rgba(255,140,0,0.95)]"
+                animate={{ scale: [1.1, 1, 1.3, 1.1], rotate: [2, -2, 1, 0] }}
+                transition={{ duration: 0.7, repeat: Infinity }}
+              >
+                <Flame className="w-14 h-14 fill-red-500 stroke-yellow-300" />
+              </motion.div>
 
-                      <motion.div 
-                        className="text-orange-400 drop-shadow-[0_0_15px_rgba(255,165,0,0.9)]"
-                        animate={{ scale: [0.9, 1.1, 1, 0.9], rotate: [-1, 3, -2, 0] }}
-                        transition={{ duration: 0.8, repeat: Infinity }}
-                      >
-                         <Flame className="w-10 h-10 fill-orange-500 stroke-yellow-200" />
-                      </motion.div>
-                   </div>
-                </motion.div>
-              )}
+              {/* Right Candle Flame */}
+              <motion.div 
+                className="absolute text-orange-400 drop-shadow-[0_0_20px_rgba(255,165,0,0.95)]"
+                style={{ right: '25%' }}
+                animate={{ scale: [0.95, 1.15, 1, 0.95], rotate: [-2, 3, -3, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+              >
+                <Flame className="w-12 h-12 fill-orange-500 stroke-yellow-300" />
+              </motion.div>
+            </motion.div>
+          )}
 
-              {/* Smoke Effect on Blow */}
-              {candlesBlown && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 0 }}
-                    animate={{ opacity: [0, 0.8, 0], y: -80, scale: 1.5 }}
-                    transition={{ duration: 2 }}
-                    className="text-gray-300"
-                  >
-                    <span className="text-4xl filter blur-[2px]">💨</span>
-                  </motion.div>
-              )}
-          </div>
+          {/* Smoke Effect on Blow */}
+          {candlesBlown && (
+            <motion.div
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: [0, 0.6, 0], y: -100, scale: 2 }}
+              transition={{ duration: 2.5 }}
+              className="text-gray-200"
+            >
+              <span className="text-5xl filter blur-sm">💨</span>
+            </motion.div>
+          )}
         </div>
       </div>
 
       {/* Wish Reveal Section */}
-      <div className="min-h-[150px] w-full max-w-md mt-8 flex items-center justify-center px-4 pb-10">
+      <div className="min-h-[150px] w-full max-w-md mt-12 flex items-center justify-center px-4 pb-10">
         {candlesBlown && (
             <motion.div
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}

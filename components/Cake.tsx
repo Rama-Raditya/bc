@@ -12,11 +12,15 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
   const [wishText, setWishText] = useState<string | null>(null);
   const [loadingWish, setLoadingWish] = useState(false);
 
-  // NOTE FOR USER: Replace this URL with the direct link to your Freepik image
-  // or download the image, put it in your public folder, and use "/your-image-name.jpg"
-  const CAKE_IMAGE_URL = "https://img.freepik.com/free-psd/3d-rendering-birthday-cake-isolated_23-2151147002.jpg?t=st=1732250000~exp=1732253600~hmac=000000";
-  // Fallback/Alternative nice 3D pink cake if the above expires: 
-  // "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=800&q=80"
+  // NOTE FOR USER:
+  // The link you provided is a webpage, not a direct image link.
+  // To use your specific illustration:
+  // 1. Download the image from: https://www.freepik.com/free-psd/3d-rendering-birthday-home-illustration_165584113.htm
+  // 2. Save the downloaded file (e.g., 'liaa-cake.jpg') into your 'public' folder.
+  // 3. Change the line below to: const CAKE_IMAGE_URL = "/liaa-cake.jpg";
+  //
+  // Currently using a high-quality 3D cake placeholder that matches the vibe:
+  const CAKE_IMAGE_URL = "https://img.freepik.com/free-psd/3d-rendering-birthday-cake-isolated_23-2151147002.jpg";
 
   const blowCandles = () => {
     if (!candlesBlown) {
@@ -74,8 +78,7 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
         />
 
         {/* Interactive Overlay Flames - Positioned to look like they are on top of the cake */}
-        {/* Adjust 'top' and 'left' percentages based on where the candles are in your specific image */}
-        <div className="absolute top-[15%] left-1/2 transform -translate-x-1/2 w-full h-full pointer-events-none z-10">
+        <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 w-full h-full pointer-events-none z-10">
             {/* Central Flame Cluster */}
             {!candlesBlown && (
               <motion.div 
@@ -94,7 +97,7 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
                     </motion.div>
                     
                     <motion.div 
-                      className="absolute left-0 -top-2 text-orange-500 drop-shadow-[0_0_15px_rgba(255,140,0,0.9)]"
+                      className="absolute left-0 -top-4 text-orange-500 drop-shadow-[0_0_15px_rgba(255,140,0,0.9)]"
                       animate={{ scale: [1.1, 1, 1.2, 1.1], rotate: [2, -2, 1, 0] }}
                       transition={{ duration: 0.7, repeat: Infinity }}
                     >

@@ -9,7 +9,7 @@ const Finale: React.FC = () => {
 
   // Ganti dengan foto Liaa dari Google Drive atau URL lain
   // Format Google Drive: https://drive.google.com/uc?id=FILE_ID
-  const LIAA_PHOTO_URL = "lia.jpg";
+  const LIAA_PHOTO_URL = "/lia.jpg";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -125,7 +125,7 @@ const Finale: React.FC = () => {
         >
           <div className="relative aspect-square overflow-hidden bg-gray-100 mb-4 border border-gray-200 rounded-sm">
             <img 
-              src={lia.jpg}
+              src={LIAA_PHOTO_URL}
               alt="Birthday Girl Liaa" 
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -180,7 +180,7 @@ const Finale: React.FC = () => {
             onClick={() => window.location.reload()}
             className="mt-10 px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 rounded-full text-white font-bold transition-all shadow-[0_0_20px_rgba(236,72,153,0.5)] transform hover:scale-105 active:scale-95"
           >
-           RESTART
+            RESTART
           </motion.button>
         </motion.div>
       </div>

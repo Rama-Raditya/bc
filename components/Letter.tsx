@@ -9,13 +9,13 @@ interface LetterProps {
 const Letter: React.FC<LetterProps> = ({ onNext }) => {
   const message = `Deear Liaa,
 
-Selamat Ulang Tahun yang ke-18! 🎉
+Selamat Ulang Tahun yang ke-18! 🥳🎉
 
 23 November 2025... Hari ini adalah hari yang sangat spesial. Selamat datang di fase dewasa, di mana dunia membuka lebih banyak petualangan untukmu.
 
 Semoga di usiamu yang baru ini, kamu selalu dikelilingi kebahagiaan, cinta, dan tawa. Tetaplah menjadi Liaa yang ceria dan luar biasa.
 
-Jangan lupa untuk terus scroll ya! 👇`;
+ scroll here ! 👇`;
 
   const [displayedText, setDisplayedText] = useState('');
 
@@ -47,7 +47,7 @@ Jangan lupa untuk terus scroll ya! 👇`;
           boxShadow: '0 10px 30px -10px rgba(255, 182, 193, 0.5)'
         }}
       >
-        <h1 className="handwritten text-4xl text-pink-500 mb-6 font-bold text-center">Untuk Liaa 💖</h1>
+        <h1 className="handwritten text-4xl text-pink-500 mb-6 font-bold text-center">For Liaa 🥳</h1>
         <div className="font-serif text-gray-700 text-lg leading-8 whitespace-pre-wrap romantic text-2xl">
           {displayedText}
         </div>

@@ -9,7 +9,7 @@ const Finale: React.FC = () => {
 
   // Ganti dengan foto Liaa dari Google Drive atau URL lain
   // Format Google Drive: https://drive.google.com/uc?id=FILE_ID
-  const LIAA_PHOTO_URL = "https://drive.google.com/u/0/drive-viewer/AKGpihZnIsKTOE0fHQubw8W11xorNparepr0BGbUr01278SbKzSzSwqsB-VGXWonB4ZadxJaFH-ikf6WPnlPK2QOaM93iaG_ibmPmCU=s1600-rw-v1";
+  const LIAA_PHOTO_URL = "https://photos.google.com/share/AF1QipPFXYaM6OEl9I-f8QVLC_1ghH5Se_pDcINgvYl7fXKMIkvaljoeWtb9pLzwhS0j5A/photo/AF1QipN4nUeRD9d6gSKD301l_aJBeY2GwH76oAR8aqiF?key=OGJtRHZlVm5ndnZfNFNFdlNwMnlidGF6eHppX3h3";
 
   useEffect(() => {
     const canvas = canvasRef.current;

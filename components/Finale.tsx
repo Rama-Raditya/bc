@@ -9,7 +9,7 @@ const Finale: React.FC = () => {
 
   // Ganti dengan foto Liaa dari Google Drive atau URL lain
   // Format Google Drive: https://drive.google.com/uc?id=FILE_ID
-  const LIAA_PHOTO_URL = "https://photos.google.com/share/AF1QipPFXYaM6OEl9I-f8QVLC_1ghH5Se_pDcINgvYl7fXKMIkvaljoeWtb9pLzwhS0j5A/photo/AF1QipN4nUeRD9d6gSKD301l_aJBeY2GwH76oAR8aqiF?key=OGJtRHZlVm5ndnZfNFNFdlNwMnlidGF6eHppX3h3";
+  const LIAA_PHOTO_URL = "https://ibb.co.com/Pv0RcLZb";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -153,7 +153,7 @@ const Finale: React.FC = () => {
           className="mt-12 text-center text-white"
         >
           <h1 className="text-5xl md:text-6xl handwritten text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 drop-shadow-lg leading-tight">
-            Selamat Ulang Tahun!
+            Happy Birthday!
           </h1>
           
           <motion.p 
@@ -161,7 +161,7 @@ const Finale: React.FC = () => {
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            Semoga harimu seindah senyumanmu. 💝
+            I Hope You Have a Wonderful Day. 💝
           </motion.p>
           
           <motion.p 

@@ -175,7 +175,7 @@ const Cake: React.FC<CakeProps> = ({ onComplete }) => {
                             onClick={onComplete}
                             className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 rounded-full text-white font-bold transition-all shadow-[0_0_20px_rgba(236,72,153,0.5)] transform hover:scale-105 active:scale-95 w-full"
                         >
-                            Lihat Kejutan Terakhir! 🎆
+                            NEXT! 🎆
                         </button>
                     </>
                 )}

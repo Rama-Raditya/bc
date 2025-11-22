@@ -7,7 +7,7 @@ interface LetterProps {
 }
 
 const Letter: React.FC<LetterProps> = ({ onNext }) => {
-  const message = `Dear Liaa,
+  const message = `Deear Liaa,
 
 Selamat Ulang Tahun yang ke-18! 🎉
 

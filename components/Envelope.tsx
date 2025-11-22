@@ -39,7 +39,7 @@ const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
           </div>
 
           <div className="absolute bottom-4 text-white font-bold tracking-widest opacity-80 text-sm">
-            FOR LIAA
+            BUKAA
           </div>
         </motion.div>
 

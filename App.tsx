@@ -11,9 +11,8 @@ const App: React.FC = () => {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Audio URL - pastikan file yb.mp3 ada di folder public/
-  // Path: public/yb.mp3 → "./yb.mp3" atau "/yb.mp3"
-  const AUDIO_URL = "/yb.mp3"; 
+  // Audio URL dari Pixabay - Solo Piano Thanksgiving Day Holiday
+  const AUDIO_URL = "https://cdn.pixabay.com/download/audio/2022/08/09/audio_170989ad77.mp3"; 
 
   // Stop audio when reaching Finale
   useEffect(() => {
@@ -29,10 +28,21 @@ const App: React.FC = () => {
   const handleEnvelopeOpen = () => {
     setStage(AppStage.LETTER);
     // Try to play audio when user interacts (opens envelope)
-    if (audioRef.current) {
-      audioRef.current.volume = 0.4; // Set volume to 40%
-      audioRef.current.play().catch(e => console.log("Audio autoplay blocked until interaction", e));
-    }
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.4; // Set volume to 40%
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log("Audio playing successfully");
+            })
+            .catch(error => {
+              console.log("Audio play error:", error);
+            });
+        }
+      }
+    }, 500);
   };
 
   const toggleAudio = () => {

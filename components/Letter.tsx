@@ -9,11 +9,12 @@ interface LetterProps {
 const Letter: React.FC<LetterProps> = ({ onNext }) => {
   const message = `Deear Liaa,
 
-Selamat Ulang Tahun yang ke-18! 🥳🎉
+Selamat Ulang Tahun yang ke-18! 🎉
 
-23 November 2025... Hari ini adalah hari yang sangat spesial. Selamat datang di fase dewasa, di mana dunia membuka lebih banyak petualangan untukmu.
+23 November 2025... Today is a very special day. Welcome to adulthood, where the world opens more adventures for you.
 
-Semoga di usiamu yang baru ini, kamu selalu dikelilingi kebahagiaan, cinta, dan tawa. Tetaplah menjadi Liaa yang ceria dan luar biasa.
+May this new age bring you endless joy, love, and laughter. Keep being the cheerful and amazing Liaa.
+.
 
  scroll here ! 👇`;
 

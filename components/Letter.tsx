@@ -15,7 +15,7 @@ Selamat Ulang Tahun yang ke-18! 🎉
 
 Semoga di usiamu yang baru ini, kamu selalu dikelilingi kebahagiaan, cinta, dan tawa. Tetaplah menjadi Liaa yang ceria dan luar biasa.
 
-Aku punya kejutan kecil di bawah, scroll ya! 👇`;
+Jangan lupa untuk terus scroll ya! 👇`;
 
   const [displayedText, setDisplayedText] = useState('');
 
